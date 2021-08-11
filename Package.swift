@@ -4,7 +4,7 @@ import PackageDescription
 
 let package = Package(
     name: "mdk_ios_core_repository",
-    platforms: [.iOS(.v13), .tvOS(.v9), .watchOS(.v2)],
+    platforms: [.iOS(.v13), .tvOS(.v9), .watchOS(.v2), .macOS(.v10_12)],
     products: [
         
         .library(
@@ -31,6 +31,10 @@ let package = Package(
             name: "LocalStoreFileManager",
             targets: ["LocalStoreFileManager"]),
         
+        .library(
+            name: "LocalStoreMappable",
+            targets: ["LocalStoreMappable"]),
+        
         /// Core Data Persistent
 
         .library(
@@ -50,7 +54,7 @@ let package = Package(
     ],
     dependencies: [
         .package(name: "KeychainSwift", url: "https://github.com/evgenyneu/keychain-swift.git", from: "19.0.0"),
-
+        .package(name: "ObjectMapper", url: "https://github.com/tristanhimmelman/ObjectMapper.git", from: "4.2.0")
     ],
     targets: [
         
@@ -80,6 +84,14 @@ let package = Package(
         .testTarget(
             name: "LocalStoreCodableTests",
             dependencies: ["LocalStoreCodable"]),
+        
+        .target(
+            name: "LocalStoreMappable",
+            dependencies: [.target(name: "SwiftRepository"), "ObjectMapper"],
+            path: "Sources/LocalStore/Mappable"),
+        .testTarget(
+            name: "LocalStoreMappableTests",
+            dependencies: ["LocalStoreMappable"]),
         
         .target(
             name: "LocalStoreCoreData",
