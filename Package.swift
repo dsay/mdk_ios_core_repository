@@ -10,10 +10,6 @@ let package = Package(
         .library(
             name: "SwiftRepository",
             targets: ["SwiftRepository"]),
-    
-        .library(
-            name: "CombineExtensions",
-            targets: ["CombineExtensions"]),
         
         /// Networking
         
@@ -22,7 +18,7 @@ let package = Package(
             targets: ["RequestProvider"]),
         
         /// LocalStore
-
+        
         .library(
             name: "LocalStoreCodable",
             targets: ["LocalStoreCodable"]),
@@ -40,13 +36,13 @@ let package = Package(
             targets: ["LocalStoreMappable"]),
         
         /// Core Data Persistent
-
+        
         .library(
             name: "PersistentContainer",
             targets: ["PersistentContainer"]),
         
         /// Storage
-
+        
         .library(
             name: "UserDefaultsStorage",
             targets: ["UserDefaultsStorage"]),
@@ -54,18 +50,16 @@ let package = Package(
         .library(
             name: "KeychainSwiftStorage",
             targets: ["KeychainSwiftStorage"]),
-
+        
+        .library(
+            name: "CombineExtensions",
+            targets: ["CombineExtensions"]),
     ],
     dependencies: [
         .package(name: "KeychainSwift", url: "https://github.com/evgenyneu/keychain-swift.git", from: "19.0.0"),
         .package(name: "ObjectMapper", url: "https://github.com/tristanhimmelman/ObjectMapper.git", from: "4.2.0")
     ],
     targets: [
-        
-        .target(
-            name: "CombineExtensions",
-            dependencies: [],
-            path: "Sources/Extensions/Combine"),
         
         .target(
             name: "SwiftRepository",
@@ -75,7 +69,7 @@ let package = Package(
             dependencies: ["SwiftRepository"]),
         
         /// Networking
-
+        
         .target(
             name: "RequestProvider",
             dependencies: [.target(name: "SwiftRepository")],
@@ -85,7 +79,7 @@ let package = Package(
             dependencies: ["RequestProvider"]),
         
         /// LocalStore
-
+        
         .target(
             name: "LocalStoreCodable",
             dependencies: [.target(name: "SwiftRepository")],
@@ -127,7 +121,7 @@ let package = Package(
             dependencies: ["PersistentContainer"]),
         
         /// Storage
-
+        
         .target(
             name: "UserDefaultsStorage",
             dependencies: [.target(name: "SwiftRepository")],
@@ -143,5 +137,10 @@ let package = Package(
         .testTarget(
             name: "KeychainSwiftStorageTests",
             dependencies: ["KeychainSwiftStorage"]),
+        
+        .target(
+            name: "CombineExtensions",
+            dependencies: [],
+            path: "Sources/Extensions/Combine"),
     ]
 )
