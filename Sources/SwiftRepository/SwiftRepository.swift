@@ -12,7 +12,7 @@ public enum RepositoryError: LocalizedError {
     case error(Error)
     case message(String)
 
-    case serialize
+    case serialisation
 
     case invalidStringURL(string: String)
     case invalidURL(url: URL)

@@ -11,6 +11,10 @@ let package = Package(
             name: "SwiftRepository",
             targets: ["SwiftRepository"]),
     
+        .library(
+            name: "CombineExtensions",
+            targets: ["CombineExtensions"]),
+        
         /// Networking
         
         .library(
@@ -57,6 +61,11 @@ let package = Package(
         .package(name: "ObjectMapper", url: "https://github.com/tristanhimmelman/ObjectMapper.git", from: "4.2.0")
     ],
     targets: [
+        
+        .target(
+            name: "CombineExtensions",
+            dependencies: [],
+            path: "Sources/Extensions/Combine"),
         
         .target(
             name: "SwiftRepository",

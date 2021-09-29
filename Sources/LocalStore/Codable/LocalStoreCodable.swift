@@ -14,7 +14,7 @@ open class LocalStoreCodable<Item: Codable>: LocalStoreDisk {
     }
     
     public func get(from URL: String) throws -> Item {
-        guard let encoded = store.getData(URL) else{
+        guard let encoded = store.getData(URL) else {
             throw RepositoryError.notFound
         }
         return try JSONDecoder().decode(Item.self, from: encoded)
