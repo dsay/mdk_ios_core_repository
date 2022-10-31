@@ -25,7 +25,7 @@ open class LocalStoreCoreData<Item: NSManagedObject>: LocalStoreDataBase {
         self.context = context
     }
 
-    public func createFetchRequest() throws -> NSFetchRequest<Item> {
+    open func createFetchRequest() throws -> NSFetchRequest<Item> {
         guard let name = Item.entity().name else {
             throw RepositoryError.notFound
         }
@@ -33,7 +33,7 @@ open class LocalStoreCoreData<Item: NSManagedObject>: LocalStoreDataBase {
         return NSFetchRequest(entityName: name)
     }
     
-    public func getItem(response: @escaping (Result<Item, RepositoryError>) -> Void) {
+    open func getItem(response: @escaping (Result<Item, RepositoryError>) -> Void) {
         do {
             let fetchRequest = try createFetchRequest()
             fetchRequest.fetchLimit = 1
@@ -50,7 +50,7 @@ open class LocalStoreCoreData<Item: NSManagedObject>: LocalStoreDataBase {
         }
     }
 
-    public func getItems(response: @escaping (Result<[Item], RepositoryError>) -> Void) {
+    open func getItems(response: @escaping (Result<[Item], RepositoryError>) -> Void) {
         do {
             let fetchRequest = try createFetchRequest()
             
@@ -62,7 +62,7 @@ open class LocalStoreCoreData<Item: NSManagedObject>: LocalStoreDataBase {
         }
     }
 
-    public func get(with id: Int, response: @escaping (Result<Item, RepositoryError>) -> Void) {
+    open func get(with id: Int, response: @escaping (Result<Item, RepositoryError>) -> Void) {
         do {
             let fetchRequest = try createFetchRequest()
             fetchRequest.predicate = NSPredicate(format: "id == %@", id)
@@ -80,7 +80,7 @@ open class LocalStoreCoreData<Item: NSManagedObject>: LocalStoreDataBase {
         }
     }
 
-    public func get(with id: String, response: @escaping (Result<Item, RepositoryError>) -> Void) {
+    open func get(with id: String, response: @escaping (Result<Item, RepositoryError>) -> Void) {
         do {
             let fetchRequest = try createFetchRequest()
             fetchRequest.predicate = NSPredicate(format: "id == %@", id)
@@ -98,7 +98,7 @@ open class LocalStoreCoreData<Item: NSManagedObject>: LocalStoreDataBase {
         }
     }
     
-    public func get(with predicate: NSPredicate, response: @escaping (Result<[Item], RepositoryError>) -> Void) {
+    open func get(with predicate: NSPredicate, response: @escaping (Result<[Item], RepositoryError>) -> Void) {
         do {
             let fetchRequest = try createFetchRequest()
             fetchRequest.predicate = predicate
@@ -111,7 +111,7 @@ open class LocalStoreCoreData<Item: NSManagedObject>: LocalStoreDataBase {
         }
     }
 
-    public func update(_ write: @escaping () -> Void, response: @escaping (Result<Void, RepositoryError>) -> Void) {
+    open func update(_ write: @escaping () -> Void, response: @escaping (Result<Void, RepositoryError>) -> Void) {
         context.perform {
             write()
             
@@ -123,7 +123,7 @@ open class LocalStoreCoreData<Item: NSManagedObject>: LocalStoreDataBase {
         }
     }
 
-    public func save(_ item: Item, policy: UpdatePolicy = .all, response: @escaping (Result<Void, RepositoryError>) -> Void) {
+    open func save(_ item: Item, policy: UpdatePolicy = .all, response: @escaping (Result<Void, RepositoryError>) -> Void) {
         context.perform {
             self.context.mergePolicy = policy.toCoreData()
             
@@ -135,7 +135,7 @@ open class LocalStoreCoreData<Item: NSManagedObject>: LocalStoreDataBase {
         }
     }
     
-    public func save(_ items: [Item], policy: UpdatePolicy = .all, response: @escaping (Result<Void, RepositoryError>) -> Void) {
+    open func save(_ items: [Item], policy: UpdatePolicy = .all, response: @escaping (Result<Void, RepositoryError>) -> Void) {
         context.perform {
             self.context.mergePolicy = policy.toCoreData()
             
@@ -147,7 +147,7 @@ open class LocalStoreCoreData<Item: NSManagedObject>: LocalStoreDataBase {
         }
     }
     
-    public func remove(_ item: Item, response: @escaping (Result<Void, RepositoryError>) -> Void) {
+    open func remove(_ item: Item, response: @escaping (Result<Void, RepositoryError>) -> Void) {
         context.perform {
             self.context.delete(item)
             
@@ -159,7 +159,7 @@ open class LocalStoreCoreData<Item: NSManagedObject>: LocalStoreDataBase {
         }
     }
 
-    public func remove(_ items: [Item], response: @escaping (Result<Void, RepositoryError>) -> Void) {
+    open func remove(_ items: [Item], response: @escaping (Result<Void, RepositoryError>) -> Void) {
         context.perform {
             items.forEach { self.context.delete($0) }
             

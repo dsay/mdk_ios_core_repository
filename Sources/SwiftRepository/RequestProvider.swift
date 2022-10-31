@@ -14,13 +14,11 @@ public enum HTTPMethod: String {
 
 // MARK: - RequestProvider
 
-   /// Creates a `RequestProvider` to retrieve the contents of the specified `url`, `method`, `path`, `query`
-   /// , `body` and `headers`.
-   ///
-   /// - parameter url:        The URL.
+   /// Creates a `RequestProvider` to retrieve the contents of the specified
+   /// - parameter url:        The URL. Can have next format https://domain.com
    /// - parameter method:     The HTTPMethod enum.
    /// - parameter path:       The RequestPathConvertible adds in the end of URL. Use next format `/user/1` or `[/user, 1]`
-   /// - parameter query: The queryItems adds in the URL after `?` all items separate by `&` `?search&name=Artur&age=27`.
+   /// - parameter query:      The queryItems adds in the URL after `?` all items separate by `&` `?search&name=Artur&age=27`.
    /// - parameter headers:    The HTTP headers.
    /// - parameter body:       The RequestBodyConvertible. By encode parameters to `httpBody`.
 

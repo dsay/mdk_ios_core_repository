@@ -4,7 +4,7 @@ import PackageDescription
 
 let package = Package(
     name: "mdk_ios_core_repository",
-    platforms: [.iOS(.v13), .tvOS(.v9), .watchOS(.v2), .macOS(.v10_12)],
+    platforms: [.iOS(.v14), .tvOS(.v9), .watchOS(.v2), .macOS(.v10_15)],
     products: [
         
         .library(

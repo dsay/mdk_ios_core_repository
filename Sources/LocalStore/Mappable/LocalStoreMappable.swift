@@ -10,11 +10,11 @@ open class LocalStoreMappable<Item: BaseMappable>: LocalStoreDisk {
         self.store = store
     }
     
-    public func isExists(at URL: String) -> Bool {
+    open func isExists(at URL: String) -> Bool {
         store.getString(URL) != nil
     }
     
-    public func get(from URL: String) throws -> Item {
+    open func get(from URL: String) throws -> Item {
         let mapper = Mapper<Item>(context: nil, shouldIncludeNilValues: false)
         guard let object = store.getString(URL),
             let parsedObject = mapper.map(JSONString: object) else {
@@ -23,11 +23,11 @@ open class LocalStoreMappable<Item: BaseMappable>: LocalStoreDisk {
         return parsedObject
     }
     
-    public func remove(from URL: String) throws {
+    open func remove(from URL: String) throws {
         store.deleteValue(URL)
     }
     
-    public func save(_ item: Item, at URL: String) throws {
+    open func save(_ item: Item, at URL: String) throws {
         guard let JSONString = item.toJSONString() else {
             throw RepositoryError.notSave
         }
