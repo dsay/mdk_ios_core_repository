@@ -1,4 +1,5 @@
 import UIKit
+import SwiftRepository
 
 public struct HTTPHeader {
     

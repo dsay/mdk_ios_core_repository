@@ -15,9 +15,9 @@ extension Array: URLComposer where Element == String {
     }
 }
 
-public extension String  {
+extension String  {
     
-    @inlinable static func / (lhs: String, rhs: String) -> String {
+    @inlinable static public func / (lhs: String, rhs: String) -> String {
         return rhs.isEmpty ? lhs : lhs + "/" + rhs
     }
 }

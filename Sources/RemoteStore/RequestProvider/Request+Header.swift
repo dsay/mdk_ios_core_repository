@@ -16,7 +16,7 @@ extension Dictionary: RequestComposer where Key == String, Value == String {
 
 extension URLRequest {
 
-    mutating func setHTTPHeader(_ HTTPHeader: [String: String]) {
+    mutating public func setHTTPHeader(_ HTTPHeader: [String: String]) {
         HTTPHeader.forEach {
             self.setValue($1, forHTTPHeaderField: $0)
         }

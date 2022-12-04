@@ -8,7 +8,7 @@ public extension RequestProvider {
     func asURL() throws -> URL {
         
         guard var url = URL(string: urlString) else {
-            throw RepositoryError.invalidStringURL(string: urlString)
+            throw NSError.create(with: RepositoryErrorBadURL)
         }
         
         url = try path.compose(into: url)
@@ -30,14 +30,14 @@ public extension RequestProvider {
     }
 }
 
-public extension String {
+extension String {
     
-    func escape() -> String {
+     public func escape() -> String {
         addingPercentEncoding(withAllowedCharacters: .URLQueryAllowed) ?? ""
     }
 }
 
-public extension CharacterSet {
+extension CharacterSet {
     /// Creates a CharacterSet from RFC 3986 allowed characters.
     ///
     /// RFC 3986 states that the following characters are "reserved" characters.
@@ -48,7 +48,7 @@ public extension CharacterSet {
     /// In RFC 3986 - Section 3.4, it states that the "?" and "/" characters should not be escaped to allow
     /// query strings to include a URL. Therefore, all "reserved" characters with the exception of "?" and "/"
     /// should be percent-escaped in the query string.
-    static let URLQueryAllowed: CharacterSet = {
+    static public let URLQueryAllowed: CharacterSet = {
         let generalDelimitersToEncode = ":#[]@" // does not include "?" or "/" due to RFC 3986 - Section 3.4
         let subDelimitersToEncode = "!$&'()*+;="
         let encodableDelimiters = CharacterSet(charactersIn: "\(generalDelimitersToEncode)\(subDelimitersToEncode)")

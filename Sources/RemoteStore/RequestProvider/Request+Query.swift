@@ -10,7 +10,7 @@ extension Dictionary: URLComposer where Key == String, Value == String? {
         }
         
         guard var components = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
-            throw RepositoryError.invalidURL(url: url)
+            throw NSError.create(with: RepositoryErrorBadURL)
         }
             
         var items = compactMap { URLQueryItem(name: $0, value: $1?.escape()) }
@@ -18,7 +18,7 @@ extension Dictionary: URLComposer where Key == String, Value == String? {
         components.queryItems = items
         
         guard let aUrl = components.url else {
-            throw RepositoryError.invalidURL(url: url)
+            throw NSError.create(with: RepositoryErrorBadURL)
         }
         
         return aUrl
