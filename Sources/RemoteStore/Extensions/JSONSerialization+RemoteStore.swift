@@ -1,4 +1,5 @@
 import Foundation
+import SwiftRepository
 
 extension JSONSerialization {
     
