@@ -1,5 +1,6 @@
 import KeychainSwift
 import Foundation
+import SwiftRepository
 
 open class LocalStoreKeychain<Item: Codable>: LocalStoreDisk {
 

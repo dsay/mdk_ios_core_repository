@@ -74,26 +74,26 @@ open class LocalStoreCoreData: LocalStoreDataBase {
     }
 
     open func save(_ policy: UpdatePolicy = .all) async throws {
-        try await context.perform { [weak self] in
-            self?.context.mergePolicy = policy.toCoreData()
+//        try await context.perform { [weak self] in
+            self.context.mergePolicy = policy.toCoreData()
             
-            try self?.context.save()
-        }
+            try self.context.save()
+//        }
     }
     
     open func delete<T: NSManagedObject>(_ item: T) async throws{
-        try await context.perform { [weak self] in
-            self?.context.delete(item)
+//        try await context.perform { [weak self] in
+            self.context.delete(item)
             
-            try self?.context.save()
-        }
+            try self.context.save()
+//        }
     }
     
     open func delete<T: NSManagedObject>(_ items: [T]) async throws{
-        try await context.perform { [weak self] in
-            items.forEach { self?.context.delete($0) }
+//        try await context.perform { [weak self] in
+            items.forEach { self.context.delete($0) }
 
-            try self?.context.save()
-        }
+            try self.context.save()
+//        }
     }
 }
