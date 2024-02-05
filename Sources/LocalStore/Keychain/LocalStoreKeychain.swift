@@ -3,26 +3,33 @@ import Foundation
 import SwiftRepository
 
 open class LocalStoreKeychain<Item: Codable>: LocalStoreDisk {
-
-    public let store: KeychainSwift
-
-    public init(_ store: KeychainSwift) {
-        self.store = store
+    
+    public var keychain: KeychainSwift
+    public var decoder: JSONDecoder
+    public var encoder: JSONEncoder
+    
+    public init(_ keychain: KeychainSwift,
+                _ decoder: JSONDecoder = JSONDecoder(),
+                _ encoder: JSONEncoder = JSONEncoder())
+    {
+        self.keychain = keychain
+        self.decoder = decoder
+        self.encoder = encoder
     }
-
+    
     open func get(forKey key: String) throws -> Item {
-        guard let encoded = store.getData(key, asReference: false) else {
+        guard let encoded = keychain.getData(key, asReference: false) else {
             throw NSError.create(with: RepositoryErrorNotFound)
         }
-        return try JSONDecoder().decode(Item.self, from: encoded)
+        return try decoder.decode(Item.self, from: encoded)
     }
 
     open func remove(forKey key: String) throws {
-        store.delete(key)
+        keychain.delete(key)
     }
 
     open func save(_ item: Item, forKey key: String) throws {
-        let encoded = try JSONEncoder().encode(item)
-        store.set(encoded, forKey: key)
+        let encoded = try encoder.encode(item)
+        keychain.set(encoded, forKey: key)
     }
 }

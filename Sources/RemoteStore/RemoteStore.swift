@@ -3,7 +3,7 @@ import SwiftRepository
 
 public typealias HttpResult = (data: Data, response: URLResponse)
 
-open class URLSessionRemoteStore {
+open class RemoteStoreURLSession {
     
     // MARK: - Properties
     
@@ -71,10 +71,10 @@ open class URLSessionRemoteStore {
     }
 }
 
-extension URLSessionRemoteStore: RemoteStore {
+extension RemoteStoreURLSession: RemoteStore {
     
     // MARK: - RemoteStore methods
-    open func dataRequest(for provider: RequestProvider) async throws -> Data {
+    public func dataRequest(for provider: RequestProvider) async throws -> Data {
         logger.start()
         
         defer {
@@ -99,7 +99,7 @@ extension URLSessionRemoteStore: RemoteStore {
         }
     }
     
-    open func stringRequest(for provider: RequestProvider) async throws -> String {
+    public func stringRequest(for provider: RequestProvider) async throws -> String {
         logger.start()
         
         defer {
@@ -124,7 +124,7 @@ extension URLSessionRemoteStore: RemoteStore {
         }
     }
     
-    open func jsonRequest(for provider: RequestProvider, keyPath: String? = nil) async throws -> Any {
+    public func jsonRequest(for provider: RequestProvider, keyPath: String? = nil) async throws -> Any {
         logger.start()
         
         defer {
@@ -149,7 +149,7 @@ extension URLSessionRemoteStore: RemoteStore {
         }
     }
     
-    open func objectRequest<T: Decodable>(for provider: RequestProvider,
+    public func objectRequest<T: Decodable>(for provider: RequestProvider,
                                           keyPath: String? = nil,
                                           decoder: JSONDecoder = JSONDecoder()) async throws -> T
     {
@@ -177,7 +177,7 @@ extension URLSessionRemoteStore: RemoteStore {
         }
     }
     
-    open func objectsRequest<T: Decodable>(for provider: RequestProvider,
+    public func objectsRequest<T: Decodable>(for provider: RequestProvider,
                                            keyPath: String? = nil,
                                            decoder: JSONDecoder = JSONDecoder()) async throws -> [T]
     {

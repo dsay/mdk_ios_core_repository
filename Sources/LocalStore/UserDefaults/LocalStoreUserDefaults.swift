@@ -3,25 +3,32 @@ import SwiftRepository
 
 public class LocalStoreUserDefaults<Item: Codable>: LocalStoreDisk {
     
-    public let store: UserDefaults
-    
-    public init(_ store: UserDefaults) {
-        self.store = store
+    public var userDefaults: UserDefaults
+    public var decoder: JSONDecoder
+    public var encoder: JSONEncoder
+
+    public init(_ userDefaults: UserDefaults = UserDefaults.standard,
+                _ decoder: JSONDecoder = JSONDecoder(),
+                _ encoder: JSONEncoder = JSONEncoder())
+    {
+        self.userDefaults = userDefaults
+        self.decoder = decoder
+        self.encoder = encoder
     }
     
     open func get(forKey key: String) throws -> Item {
-        guard let encoded = store.data(forKey: key) else {
+        guard let encoded = userDefaults.data(forKey: key) else {
             throw NSError.create(with: RepositoryErrorNotFound)
         }
-        return try JSONDecoder().decode(Item.self, from: encoded)
+        return try decoder.decode(Item.self, from: encoded)
     }
     
     open func remove(forKey key: String) throws {
-        store.removeObject(forKey: key)
+        userDefaults.removeObject(forKey: key)
     }
     
     open func save(_ item: Item, forKey key: String) throws {
-        let encoded = try JSONEncoder().encode(item)
-        store.setValue(encoded, forKey: key)
+        let encoded = try encoder.encode(item)
+        userDefaults.setValue(encoded, forKey: key)
     }
 }
